@@ -435,7 +435,11 @@ def run():
     ].rename(
         columns={
             "Trade_Spend_LKR":
+<<<<<<< HEAD
             "Trade Spend Allocation (LKR)"
+=======
+            "Trade_Spend_Allocation_LKR"
+>>>>>>> a93e7b3865e12cdd31fc18e65587875f20aedf50
         }
     )
 

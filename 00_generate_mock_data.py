@@ -91,7 +91,11 @@ outlet_baseline = {}
 for _, row in outlets_df.iterrows():
     oid = row["Outlet_ID"]
     # Western province gets higher baseline
+<<<<<<< HEAD
     prov_mult = 1.5 if str(row["Province"]).strip().lower() == "western" else 1.0
+=======
+    prov_mult = 1.5 if row["Province"] == "Western" else 1.0
+>>>>>>> a93e7b3865e12cdd31fc18e65587875f20aedf50
     # Supermarkets sell more
     type_mult = {"Supermarket":2.0,"Grocery":1.2,"Convenience":1.1,"Eatery":0.9,"Kade":0.8,"Pharmacy":0.6}.get(row["Outlet_Type"],1.0)
     base_daily = np.random.lognormal(mean=2.5, sigma=0.6) * prov_mult * type_mult

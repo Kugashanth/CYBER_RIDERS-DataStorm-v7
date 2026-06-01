@@ -208,6 +208,7 @@ def get_feature_cols(df: pd.DataFrame) -> list:
 
 def compute_target(df: pd.DataFrame) -> pd.Series:
     """
+<<<<<<< HEAD
     Purely mathematical latent potential calculation using your custom Tobit engine.
     Removes arbitrary multipliers to maximize analytical evaluation metrics.
     """
@@ -233,6 +234,21 @@ def compute_target(df: pd.DataFrame) -> pd.Series:
                     * df["dist_jan_seasonality"].clip(0.5, 2.0))
 
     return pd.Series(np.maximum(final_target, df["hist_mean_monthly"].values), name="target")
+=======
+    Proxy for latent potential:
+      - For censored outlets (low CV): use 90th percentile × Jan ratio × seasonality
+      - For normal outlets : use max_monthly × Jan ratio × seasonality
+    """
+    base = np.where(
+        df["censoring_indicator"] == 1,
+        df["hist_p90_monthly"] * 1.35,   # uplift censored outlets by 35%
+        df["hist_max_monthly"]
+    )
+    target = (base
+              * df["jan_ratio"].clip(0.5, 3.0)
+              * df["dist_jan_seasonality"].clip(0.5, 2.0))
+    return pd.Series(np.maximum(target, df["hist_mean_monthly"]), name="target")
+>>>>>>> a93e7b3865e12cdd31fc18e65587875f20aedf50
 
 
 # ─────────────────────────────────────────────────────────────────────────────
