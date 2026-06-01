@@ -65,11 +65,6 @@ def load_data():
             alloc = alloc.rename(columns={"Trade Spend Allocation (LKR)": "Trade_Spend_LKR"})
 
         alloc = alloc[["Outlet_ID", "Trade_Spend_LKR", "expected_volume_gain_L", "roi_litres_per_1000_lkr"]]
-=======
-        alloc = pd.read_csv(alloc_path)[
-            ["Outlet_ID","Trade_Spend_LKR","expected_volume_gain_L","roi_litres_per_1000_lkr"]
-        ]
->>>>>>> a93e7b3865e12cdd31fc18e65587875f20aedf50
         preds = preds.merge(alloc, on="Outlet_ID", how="left")
 
     df = preds.merge(
@@ -394,7 +389,7 @@ def page_outlet_detail(df: pd.DataFrame, fdf: pd.DataFrame, importances: dict):
         }
 
         if st.button("🔄 Generate / Refresh Explanation"):
-<<<<<<< HEAD
+
             with st.spinner("Querying Generative AI Model Engines..."):
                 # Routes directly to your model instead of using rule-based strings
                 explanation = get_cached_explanation(selected, ctx)
@@ -403,13 +398,13 @@ def page_outlet_detail(df: pd.DataFrame, fdf: pd.DataFrame, importances: dict):
         explanation = st.session_state.get(f"expl_{selected}", None)
         if explanation is None:
             explanation = get_cached_explanation(selected, ctx)
-=======
+
             with st.spinner("Generating AI explanation..."):
                 explanation = _rule_based_explanation(ctx)
             st.session_state[f"expl_{selected}"] = explanation
 
         explanation = st.session_state.get(f"expl_{selected}", _rule_based_explanation(ctx))
->>>>>>> a93e7b3865e12cdd31fc18e65587875f20aedf50
+
         st.markdown(f'<div class="explanation-box">{explanation}</div>', unsafe_allow_html=True)
 
     # Feature importance bar
